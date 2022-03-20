@@ -62,7 +62,7 @@ class Searcher:
 
     def get_success(self, frequence_list):
         success_list = [x[0] for x in frequence_list if x[1] > 1.5 * len(self._query)]
-        return sorted(success_list, key=lambda x: x.counter)
+        return remove_duplicate(sorted(success_list, key=lambda x: x.counter, reverse=True))
 
 
 def to_event_card(bd_data) -> List[EventCard]:
@@ -80,4 +80,13 @@ def to_event_card(bd_data) -> List[EventCard]:
         )
 
     return event_card_list
+
+
+def remove_duplicate(some_list: List):
+    new_list = []
+    for v in some_list:
+        if v not in new_list:
+            new_list.append(v)
+
+    return new_list
 
