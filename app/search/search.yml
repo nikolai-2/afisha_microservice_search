@@ -1,0 +1,21 @@
+Search module
+---
+parameters:
+    - in: query
+      name: query
+      required: true
+      type: string
+      description: User query
+      example: "Reading books"
+    - in: query
+      name: sort
+      required: false
+      enum: ["relevant", "date", "popularity"]
+      default: "relevant"
+      type: string
+      description: Sort results
+responses:
+  200:
+    description: A list of events and list of tags
+    schema:
+      &ref: '#/definitions/EventCard'
