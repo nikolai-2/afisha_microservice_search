@@ -1,4 +1,5 @@
 import random
+from typing import List, Optional
 
 from sqlalchemy import text
 from app.database import engine
@@ -8,28 +9,13 @@ from app.models.db import DBData
 QUERY_FILE_PATH = config.BaseConfig.BASE_PATH + '/app/search/sql/query.sql'
 
 
-def load_db():
-    event_names = ['изготовление мормышек',
-                   'разработка браузера на ассемблере',
-                   'подъем в горы',
-                   'иммитация программирования',
-                   'Горы и скалы']
-    event_texts = ['Что такое вообще эти ваши мормышки?',
-                   'Я просто извращенец и пишу браузер ']
-    event_places = []
-    channel_names = []
-    tags_names = []
-    for i in range(5):
-        yield DBData(event_id=i+1,
-                     event_image='pass',
-                     event_period=random.randint(1, 2 ** 4),
-                     event_name=event_names[i],
-                     event_text=event_texts[i],
-                     event_place=event_places[i],
-                     event_start_date=random.randint(1, 100),
-                     event_end_date=random.randint(80, 200),
-                     channel_name=channel_names[i],
-                     tags=tags_names[i])
+def check_tags_names(tags_names) -> List[Optional[str]]:
+    if not isinstance(tags_names, list): return []
+
+    tags_names = [x for x in tags_names if x]
+    if not tags_names: return []
+
+    return tags_names
 
 
 def load_db():
@@ -46,4 +32,5 @@ def load_db():
                      event_start_date=r.event_start_date,
                      event_end_date=r.event_end_date,
                      channel_name=r.channel_name,
-                     tags=r.tags_names)
+                     counter=r.counter,
+                     tags=check_tags_names(r.tags_names))

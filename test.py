@@ -5,7 +5,7 @@ from app.search.search import Searcher
 from pprint import pprint
 
 
-queries = ['Поход в ДГТУ']
+queries = ['Поездка в ДГТУ']
 url = 'http://localhost:5000/search'
 get_postfix = '?query={query}'
 

@@ -21,7 +21,10 @@ def register_extensions(app):
 
 def register_blueprint(app):
     from .search.views import search_module
+    from .error.views import error_module
+
     app.register_blueprint(search_module)
+    app.register_blueprint(error_module)
 
 
 def init_swagger():

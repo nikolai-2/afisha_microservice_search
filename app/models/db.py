@@ -11,6 +11,7 @@ class DBData:
     event_image: str
     channel_name: str
     tags: list
+    counter: int
     event_end_date: int = None
     event_period: int = None
 

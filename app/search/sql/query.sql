@@ -24,6 +24,7 @@ LEFT OUTER JOIN "EventTags" event_tags ON
     event.id = event_tags."eventId"
 LEFT OUTER JOIN "Tags" tags ON
     tags.id = event_tags."tagId"
+WHERE event."startDate" > now()
 GROUP BY
     event.name,
     event.text,

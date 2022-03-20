@@ -23,8 +23,6 @@ class Searcher:
         frequence_list = self.get_frequence()
         success_list = self.get_success(frequence_list)
 
-        print(print(frequence_list), len(frequence_list), len(success_list))
-
         return to_event_card(success_list)
 
     def analize_query(self):
@@ -48,10 +46,8 @@ class Searcher:
     def _get_frequence_keys(frequence_list):
         elements = []
         for element in frequence_list:
-            print(type(element))
             if element not in elements:
                 elements.append(element.element)
-        print('elements', elements)
         return elements
 
     def _filter_frequence(self, frequence_list):
@@ -59,14 +55,14 @@ class Searcher:
 
         filtered_frequence_list = []
         for k in db_elements:
-            print(list(filter(lambda x: x.element == k, frequence_list)))
             v = sum(map(lambda x: x.rank, filter(lambda x: x.element == k, frequence_list)))
             filtered_frequence_list.append((k, v))
 
         return sorted(filtered_frequence_list, key=lambda x: x[1], reverse=True)
 
     def get_success(self, frequence_list):
-        return [x[0] for x in frequence_list if x[1] > 1.5 * len(self._query)]
+        success_list = [x[0] for x in frequence_list if x[1] > 1.5 * len(self._query)]
+        return sorted(success_list, key=lambda x: x.counter)
 
 
 def to_event_card(bd_data) -> List[EventCard]:

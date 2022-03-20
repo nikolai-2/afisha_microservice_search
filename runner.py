@@ -1,7 +1,5 @@
 import os
-
 from flask_script import Manager, Shell, Command
-
 from app import create_app
 
 app = create_app()
